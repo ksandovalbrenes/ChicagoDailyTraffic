@@ -5,18 +5,20 @@ $(document).ready( function () {
             dataSrc: ''
         },
         columns: [
-            {data:"day", "defaultContent": ""},
-            {data:"date", "defaultContent": ""},
-            {data:"day", "defaultContent": ""},
-            {data:"location_address", "defaultContent": ""},
-            {data:"location_city", "defaultContent": ""},
-            {data:"location_state", "defaultContent": ""},
-            {data:"park", "defaultContent": ""},
-            {data:"park_address", "defaultContent": ""},
-            {data:"park_phone", "defaultContent": ""},
-            {data:"rating", "defaultContent": ""},
-            {data:"title", "defaultContent": ""},
-            {data:"underwriter", "defaultContent": ""}
+            {data:"cc", "defaultContent": ""},
+            {data: null, render: function (data, type, row){
+                var date = new Date(data.date);
+                return data.day + " " + date.getFullYear() + "/" + date.getMonth() + "/" + date.getDay();
+            }},
+            {data: null, render: function(data, type, row){
+                return data.location_address + ", " + data.location_city + ", " + data.location_state;
+            }},
+            {data:"park"},
+            {data:"park_address"},
+            {data:"park_phone"},
+            {data:"rating"},
+            {data:"title"},
+            {data:"underwriter","defaultContent": ""}
         ],
         responsive: true
     } );
