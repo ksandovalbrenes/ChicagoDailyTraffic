@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Chicago Daily Traffic{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{{ asset('Dependencies/DataTables/datatables.css') }}"/>
+{% endblock %}
+{% block body %}
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Daily Traffic Count</a>
+</nav>
+    <table id="TrafficDataTable" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <td>
+                    cc
+                </td>
+                <td>
+                    date
+                </td>
+                <td>
+                    day
+                </td>
+                <td>
+                    location_address
+                </td>
+                <td>
+                    location_city
+                </td>
+                <td>
+                    location_state
+                </td>
+                <td>
+                    park
+                </td>
+                <td>
+                    park_address
+                </td>
+                <td>
+                    park_phone
+                </td>
+                <td>
+                    rating
+                </td>
+                <td>
+                    title
+                </td>
+                <td>
+                    underwriter
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('Dependencies/DataTables/datatables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('Dependencies/CustomJS/TrafficTable.js') }}"></script>
+{% endblock %}
