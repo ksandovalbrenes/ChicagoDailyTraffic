@@ -1,9 +1,29 @@
+
 $(document).ready( function () {
+    getTrafficData();
+    var asdf = document.getElementById('test');
+    asdf.onclick = function() {
+        displayMap();
+    };
+} );
+
+function getTrafficData(){
+    $.ajax({
+        url: 'https://data.cityofchicago.org/resource/cm53-g3up.json'}).
+        done(function (result){
+            loadTableData(result);
+        }).
+        fail(function() {
+            alert( "Intente recargar la página" );
+        });
+}
+
+function loadTableData(dataSet) {
     $('#TrafficDataTable').DataTable( {
-        ajax: {
-            url: 'https://data.cityofchicago.org/resource/cm53-g3up.json',
-            dataSrc: ''
-        },
+        
+        data: dataSet ,
+        dataSrc: '',
+        
         columns: [
             {data:"title"},
             {data: null, render: function (data, type, row){
@@ -20,7 +40,7 @@ $(document).ready( function () {
             {data:"rating"},
             {data: null, render: function (data, type, row) {
                 if (data.location != null){
-                    return 'x:' + data.location.coordinates[0]  + ' y' + data.location.coordinates[1];
+                    return '<button class="btn btn-dark" onclick=displayMap(' + data.location.coordinates[1] + ',' + data.location.coordinates[0] + ');>Show map</button>';
                 } else {
                     return '';
                 }
@@ -28,4 +48,13 @@ $(document).ready( function () {
         ],
         responsive: true
     } );
-} );
+}
+
+function displayMap(lat, lng){
+    $('#mapModal').modal('toggle');
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: lat, lng: lng},
+        zoom: 16,
+    });
+    var marker = new google.maps.Marker({position: {lat,lng}, map: map});
+}
