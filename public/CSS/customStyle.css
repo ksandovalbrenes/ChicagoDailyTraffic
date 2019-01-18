@@ -6,10 +6,17 @@
 
 
 .graph div {
-    font: 10px sans-serif;
+    font: 20px sans-serif;
     background-color: steelblue;
-    text-align: right;
+    text-align: left;
     padding: 3px;
     margin: 1px;
     color: white;
+  }
+  .graphNames div {
+    font: 20px sans-serif;
+    text-align: right;
+    padding: 3px;
+    margin: 1px;
+    color: black;
   }

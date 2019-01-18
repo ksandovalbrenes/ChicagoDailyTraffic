@@ -1,73 +1,54 @@
-var parkNames = [0,0,0,0,0,0,0,0,0];
-var parkValues = ["", "", "", "", "", "", "", "", "", ""];
+/*
+Load graph with json data
+Group by day
+*/
+function LoadGraph(dayArray){
+    var data = [30, 86, 168, 281, 303, 365];
+    var dayData = [];
 
-function linearScale() {
-    return d3.scaleLinear().domain([0, d3.max(parkValues)]).range(0, 100);
-}
-
-
-function generateBackground(parkArray) {
-    var parkCount = [];
-    parkArray.forEach(element => {
-        if (parkCount[element] !== undefined){
-            parkCount[element] += 1 ;
+    var dayCount = [];
+    //Group data
+    dayArray.forEach(element => {
+        if (dayCount[element] !== undefined){
+            dayCount[element] += 1 ;
         } else {
-            parkCount[element] = 1;
+            dayCount[element] = 1;
         }
     });
-    parkCount.sort();
-    parkCount.reverse();
-    parkCount = parkCount.slice(0,10);
-
-    var temporalArray = [];
-    for (var i = 0; i < 10; i++){
-        
-        temporalArray[i] = parkCount[i];
+    var key;
+    var data = [];
+     
+    //Get Key names
+    var dataKey = [];
+    for(key in dayCount){
+        if(dayCount.hasOwnProperty(key)){
+            dataKey.push(key);
+        }
     }
-    parkValues = d3.values(temporalArray);
-    parkNames = d3.entries(temporalArray);
 
- 
-    //var svg = d3.select("svg");
-    //width = svg.style("width").replace("px", "");
-    //height = svg.style("height").replace("px", "");
+    //print day names
+    d3.select(".graphNames")
+    .selectAll("div")
+    .data(dataKey)
+    .enter()
+    .append("div").text(function(d) { return d; });
+    
+    //Get array values
+    for(key in dayCount){
+        if(dayCount.hasOwnProperty(key)){
+            data.push(dayCount[key]);
+        }
+    }
 
-    var x = 0;
-    var y = 0; 
 
+    //Graph bars
     d3.select(".graph")
     .selectAll("div")
-    .data(parkCount)
+    .data(data)
     .enter()
     .append("div")
-    .style("width", function(d) { return linearScale(d) + "px"; })
-    .text(function(d) { return (d); });
-
-    }
-    /*
-    function asdf(){
+    .style("width", function(d) { return d + "px"; })
+    .text(function(d) { return d; });
 
     
-
-    var circles = svg.selectAll("circle")
-    .data(parkCount)
-    .enter()
-    .append("circle")
-    .attr("cx",function(d, i) {
-        r = Math.pow(d,2);
-        x += (r*2)+1;
-        if (x > width){
-            y = 200;
-        }
-        return x;
-    })
-    .attr("cy",function(d, i){
-        console.log(y);
-        return y;
-    })
-    .attr("r", function(d, i){
-        
-        return Math.pow(d,2);
-    });
-    */
-
+}

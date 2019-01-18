@@ -1,4 +1,8 @@
 var tableHeaders = [];
+
+/*
+Javascript initialization
+*/
 $(document).ready( function () {
     tableHeaders = {"date":1, "location": 2, "park": 3, "phone": 4, "rating": 5};
     //multi-select configuration
@@ -13,25 +17,34 @@ $(document).ready( function () {
     getTrafficData();
 } );
 
+/*
+Hide columns from datatable
+*/
 function removeColumn(value){
     var table = $('#TrafficDataTable').DataTable();
     table.column(tableHeaders[value]).visible(false);
 }
 
+/*
+Make columns visible from datatable
+*/
 function addColumn(value){
     var table = $('#TrafficDataTable').DataTable();
     table.column(tableHeaders[value]).visible(true);
 }
 
+/*
+Get dataset from api
+*/
 function getTrafficData(){
     $.ajax({
         url: 'https://data.cityofchicago.org/resource/cm53-g3up.json'}).
         done(function (result){
             loadTableData(result);
-            generateBackground(result.map(function(value,index) {return value['park']}));
+            LoadGraph(result.map(function(value,index) {return value['day']}));
         }).
         fail(function() {
-            alert( "Intente recargar la página" );
+            console.log("Ha ocurrido un error al cargar la información");
         });
 }
 
