@@ -4,11 +4,49 @@
 {% block stylesheets %}
 <link rel="stylesheet" type="text/css" href="{{ asset('CSS/customStyle.css') }}"/>
 <link rel="stylesheet" type="text/css" href="{{ asset('Dependencies/DataTables/datatables.css') }}"/>
+<link rel="stylesheet" type="text/css" href="{{ asset('Dependencies/multi-select/css/multi-select.css') }}"/>
 {% endblock %}
 {% block body %}
 <nav class="navbar navbar-dark bg-dark">
   <a class="navbar-brand" href="#">Daily Traffic Count</a>
 </nav>
+
+<div class="jumbotron">
+  <h1 class="display-4">Chicago Daily Traffic</h1>
+  <p class="lead">This is a simple page for show information about average daily traffic count in City of Chicago.</p>
+  <hr class="my-4">
+  <p></p>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chartModal">
+        Show Chart
+    </button>
+</div>
+
+<div class="row">
+    <div class="container">
+        <div class="text-right pb-5">
+            <button class="btn btn-primary pull-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Addional options
+            </button>
+        </div>
+        
+            
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                <h5>Click an item for hide it from the table</h5>
+                <select multiple="multiple" id="filterDataSelect" name="my-select[]">
+                    <option value='date'>Date</option>
+                    <option value='location'>Location</option>
+                    <option value='park'>Park</option>
+                    <option value='phone'>Phone</option>
+                    <option value='rating'>Rating</option>
+                </select>
+            </div>
+        </div>    
+    </div>
+</div>
+
+
+
 
 <div class="row">
     <div class="container">
@@ -44,27 +82,38 @@
     </div>
 </div>
 
-<button id="test">test</button>
 
 <!-- Large modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#mapModal">Large modal</button>
-
 <div class="modal fade bd-example-modal-lg" id="mapModal"tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Showing map for <span id="CityName"></span></h5>
+            <h5 class="modal-title">Showing map for <span id="ParkName"></span></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        <h1>
-            
-        </h1>
         <div id="map"></div>
     </div>
   </div>
 </div>
+
+<!-- Large modal -->
+<div class="modal fade bd-example-modal-lg" id="chartModal"tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Chart</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="graph">
+    </div>
+    </div>
+  </div>
+</div>
+
 
 
 
@@ -72,6 +121,9 @@
 {% block javascripts %}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTBNBuScDCCGzhzOn8K7OtEMzBerEb_Jw" Sasync defer></script>
     <script type="text/javascript" src="{{ asset('Dependencies/DataTables/datatables.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('Dependencies/d3/d3.js') }}"></script>
     <script type="text/javascript" src="{{ asset('JS/TrafficTable.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('JS/d3.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('Dependencies/multi-select/js/jquery.multi-select.js') }}"></script>
     
 {% endblock %}
